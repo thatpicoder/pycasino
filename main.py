@@ -7,6 +7,8 @@ money = 100
 
 wait_enabled = True
 
+loading_enabled = True
+
 # psst, enter "2342" in the casino main menu for $100! don't tell anyone else though, it's a secret ;)
 
 def atm():
@@ -295,6 +297,9 @@ def bar():
     elif choice == "2":
         if money >= 5:
             money -= 5
+            print("pouring you a cold one...")
+            if wait_enabled:
+                time.sleep(2)
             print("cheers! you bought beer.")
             print(f"remaining balance: ${money}")
         else:
@@ -302,6 +307,9 @@ def bar():
     elif choice == "3":
         if money >= 10:
             money -= 10
+            print("pouring you a glass...")
+            if wait_enabled:
+                time.sleep(2)
             print("sláinte! you bought wine.")
             print(f"remaining balance: ${money}")
         else:
@@ -309,6 +317,9 @@ def bar():
     elif choice == "4":
         if money >= 15:
             money -= 15
+            print("pouring you a shot...")
+            if wait_enabled:
+                time.sleep(1)
             print("bottoms up! you bought whiskey.")
             print(f"remaining balance: ${money}")
         else:
@@ -330,7 +341,8 @@ def settings():
         print("settings, brought to you by pyCasino")
         print("1. disable wait() function on games")
         print("2. test money spending ($5)")
-        print("3. back to casino")
+        print("3. fake loading screen on casino main menu")
+        print("4. back to casino")
 
         choice = input("enter your choice: ")
 
@@ -352,6 +364,14 @@ def settings():
                 print("sorry, you don't have enough money for test spending.")
             settings()
         elif choice == "3":
+            global loading_enabled
+            loading_enabled = not loading_enabled
+            if loading_enabled:
+                print("fake loading enabled! pyCasino will now have simulated loading times.")
+            else:
+                print("fake loading disabled! pyCasino will now load instantly.")
+            settings()
+        elif choice == "4":
             casino()
         else:
             print("invalid choice.")
@@ -361,7 +381,8 @@ def casino():
     print("pyCasino, made by bitetheapple")
     time.sleep(1)
     print("loading digital casino...")
-    time.sleep(3) # simulated loading, might delete or add a setting for it??? however i would need saves for tthe settings
+    if loading_enabled:
+     time.sleep(3) # simulated loading, might delete or add a setting for it??? update: setting added
     print("welcome to pyCasino!")
     print("select what you want to do:")
     print("1. roll some dice")
