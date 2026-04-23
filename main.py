@@ -1,8 +1,13 @@
 import time
 import random
 
-# Global money variable for bar purchases
+
 money = 100
+
+
+wait_enabled = True
+
+# psst, enter "2342" in the casino main menu for $100! don't tell anyone else though, it's a secret ;)
 
 def atm():
     global money
@@ -51,7 +56,8 @@ def atm():
 def dice():
     print("dice, brought to you by pyCasino")
     print("rolling the dice...")
-    time.sleep(3)
+    if wait_enabled:
+        time.sleep(3)
     result = random.choice(["1", "2", "3", "4", "5", "6"])
     print(f"the dice rolled: {result}")
     print("thanks for playing! would you like to play some more games or play again?")
@@ -72,7 +78,8 @@ def dice():
 def coinflip():
     print("coin flip, brought to you by pyCasino")
     print("flipping the coin...")
-    time.sleep(3)
+    if wait_enabled:
+        time.sleep(3)
     result = random.choice(["heads", "tails"])
     print(f"the coin landed on: {result}")
     print("thanks for playing! would you like to play some more games or play again?")
@@ -94,7 +101,8 @@ def slots():
     global money
     print("slots, brought to you by pyCasino")
     print("spinning the slots...")
-    time.sleep(3)
+    if wait_enabled:
+        time.sleep(3)
     result = random.choice(["cherry", "lemon", "orange", "plum", "bell", "bar"])
     print(f"the slots landed on: {result}")
 
@@ -200,7 +208,8 @@ def guessing():
     global money
     print("guessing game, brought to you by pyCasino")
     print("thinking of a number...")
-    time.sleep(3)
+    if wait_enabled:
+        time.sleep(3)
 
     number = random.randint(1, 10)
 
@@ -235,7 +244,8 @@ def guessing():
 def drawstraws():
     print("draw straws, brought to you by pyCasino")
     print("drawing straws...")
-    time.sleep(3)
+    if wait_enabled:
+        time.sleep(3)
     straws = ["short", "long", "long", "long"]
     random.shuffle(straws)
     print("choose a straw (1-4): ")
@@ -316,11 +326,44 @@ def bar():
 
     bar()
 
+def settings():
+        print("settings, brought to you by pyCasino")
+        print("1. disable wait() function on games")
+        print("2. test money spending ($5)")
+        print("3. back to casino")
+
+        choice = input("enter your choice: ")
+
+        if choice == "1":
+            global wait_enabled
+            wait_enabled = not wait_enabled
+            if wait_enabled:
+                print("wait() function enabled! games will now have delays.")
+            else:
+                print("wait() function disabled! games like coin flipping will now answer instantly.")
+            settings()
+        elif choice == "2":
+            global money
+            if money >= 5:
+                money -= 5
+                print("test money spent successfully!")
+                print(f"remaining balance: ${money}")
+            else:
+                print("sorry, you don't have enough money for test spending.")
+            settings()
+        elif choice == "3":
+            casino()
+        else:
+            print("invalid choice.")
+            settings()
+
 def casino():
     print("pyCasino, made by bitetheapple")
+    time.sleep(1)
+    print("loading digital casino...")
+    time.sleep(3) # simulated loading, might delete or add a setting for it??? however i would need saves for tthe settings
     print("welcome to pyCasino!")
     print("select what you want to do:")
-
     print("1. roll some dice")
     print("2. flip some coins")
     print("3. spin some slots")
@@ -329,7 +372,8 @@ def casino():
     print("6. pyCasino bar")
     print("7. atm")
     print("8. high or low (double or nothing)")
-    print("9. leave")
+    print("9. settings")
+    print("10. leave")
 
     choice = input("enter your choice: ")
 
@@ -350,8 +394,16 @@ def casino():
     elif choice == "8":
         double_or_nothing()
     elif choice == "9":
+        settings()
+    elif choice == "10":
         print("thanks for playing! goodbye!")
         exit()
+    elif choice == "2342":
+        global money
+        money += 100
+        print("you found a secret! thanks for checking the source code! +$100")
+        print(f"remaining balance: ${money}")
+        casino()
     else:
         print("invalid choice. please try again.")
         casino()
