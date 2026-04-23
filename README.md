@@ -14,3 +14,6 @@
 2. install python 3 from https://python.org/downloads if you haven't
 3. navigate to the folder where the .py file is in terminal (if it's in downloads, run "cd ~/Downloads")
 4. run "python main.py"
+
+
+![Logo](./logos/pyCasinologo.PNG)
