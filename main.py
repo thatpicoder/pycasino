@@ -377,6 +377,69 @@ def settings():
             print("invalid choice.")
             settings()
 
+def shop():
+    global money
+    print(f"welcome to the pyCasino shop! you have ${money} to spend on items!")
+    print("all items are just for fun and have no effect on gameplay, but they make great memories!")
+    print("pick an item:")
+    print("1.a pyCasino pin ($0)")
+    print("2. a pyCasino replica pen ($5)")
+    print("3. a pyCasino replica chip ($10)")
+    print("4. an at-home pyCasino coin flip kit ($15)")
+    print("5. check balance")
+    print("6. go to atm")
+    print("7. back to casino")
+
+    choice = input("enter your choice: ")
+
+    if choice == "1":
+        if money >= 0:
+            money -= 0
+            print("take this pyCasino pin! it'll show everyone that you love our casino!")
+            print(f"remaining balance: ${money}")
+            shop()
+        else:
+            print("sorry, you don't have enough money for a pyCasino pin.")
+            shop()
+    elif choice == "2":
+        if money >= 5:
+            money -= 5
+            print("take this pyCasino replica pen! it's perfect for signing your winnings!")
+            print(f"remaining balance: ${money}")
+            shop()
+        else:
+            print("sorry, you don't have enough money for a pyCasino replica pen.")
+            shop()
+    elif choice == "3":
+        if money >= 10:
+            money -= 10
+            print("take this pyCasino replica chip! it's a great souvenir for friends and family!")
+            print(f"remaining balance: ${money}")
+            shop()
+        else:
+            print("sorry, you don't have enough money for a pyCasino replica chip.")
+            shop()
+    elif choice == "4":
+        if money >= 15:
+            money -= 15
+            print("take this at-home pyCasino coin flip kit! now the pyCasino fun never ends!")
+            print(f"remaining balance: ${money}")
+            shop()
+        else:
+            print("sorry, you don't have enough money for the at-home pyCasino coin flip kit.")
+            shop()
+    elif choice == "5":
+        print(f"your current balance is: ${money}")
+        shop()
+    elif choice == "6":
+        atm()
+        return 
+    elif choice == "7":
+        casino()
+        return 
+    else:
+        print("invalid choice.")
+
 def casino():
     print("pyCasino, made by bitetheapple")
     time.sleep(1)
@@ -394,7 +457,8 @@ def casino():
     print("7. atm")
     print("8. high or low (double or nothing)")
     print("9. settings")
-    print("10. leave")
+    print("10. shop")
+    print("11. leave")
 
     choice = input("enter your choice: ")
 
@@ -417,6 +481,8 @@ def casino():
     elif choice == "9":
         settings()
     elif choice == "10":
+        shop()
+    elif choice == "11":
         print("thanks for playing! goodbye!")
         exit()
     elif choice == "2342":
