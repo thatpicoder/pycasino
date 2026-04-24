@@ -1,3 +1,4 @@
+# i love looking at my own source code
 import json
 import time
 import random
