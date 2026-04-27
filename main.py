@@ -388,16 +388,18 @@ def bar():
     bar()
 
 def settings():
+        global money, wait_enabled, loading_enabled
         print("settings, brought to you by pyCasino")
         print("1. disable wait() function on games")
         print("2. test money spending ($5)")
         print("3. fake loading screen on casino main menu")
-        print("4. back to casino")
+        print("4. debug menu")
+        print("5. wipe data (warning: this will reset your money and settings!)")
+        print("6. back to casino")
 
         choice = input("enter your choice: ")
 
-        if choice == "1":
-            global wait_enabled
+        if choice == "1":    
             wait_enabled = not wait_enabled
             save_game()
             if wait_enabled:
@@ -407,7 +409,6 @@ def settings():
                 save_game()
             settings()
         elif choice == "2":
-            global money
             if money >= 5:
                 money -= 5
                 print("test money spent successfully!")
@@ -416,7 +417,6 @@ def settings():
                 print("sorry, you don't have enough money for test spending.")
             settings()
         elif choice == "3":
-            global loading_enabled
             loading_enabled = not loading_enabled
             save_game()
             if loading_enabled:
@@ -425,6 +425,19 @@ def settings():
                 print("fake loading disabled! pyCasino will now load instantly.")
             settings()
         elif choice == "4":
+            debug()
+        elif choice == "5": 
+            confirm = input("are you sure you want to wipe your data? this cannot be undone! (y/n) ")
+            if confirm.lower() == "y" or confirm.lower() == "Y":
+                money = 100
+                wait_enabled = True
+                loading_enabled = True
+                save_game()
+                print("data wiped successfully! your money and settings have been reset.")
+            else:
+                print("data wipe cancelled.")
+            settings()
+        elif choice == "6":
             casino()
         else:
             print("invalid choice.")
@@ -497,8 +510,26 @@ def shop():
     else:
         print("invalid choice.")
 
+def debug():
+    print("pyCasino debug menu. this is intended for dev use, but check it out if you want!")
+    print("pyCasino version: v2.1")
+    print("python version:", sys.version)
+    if os.path.exists(SAVE_PATH):
+        print("save file exists? TRUE")
+        print("save file location:", os.path.abspath(SAVE_PATH))
+        print("save file contents:", open(SAVE_PATH).read())
+    else:
+        print("save file exists? FALSE")
+    print("loading enabled:", loading_enabled)
+    print("wait enabled:", wait_enabled)
+    print("money:", money)
+
+    choice = input("enter anything to return to casino: ")
+    casino()
+
+
 def casino():
-    print("pyCasino, made by bitetheapple")
+    print("pyCasino v2.1, made by bitetheapple")
     time.sleep(1)
     print("loading digital casino...")
     if loading_enabled:
